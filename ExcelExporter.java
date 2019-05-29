@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.*;
 import javax.swing.table.*;
 import jxl.*;
@@ -35,19 +36,23 @@ public class ExcelExporter {
         }
     }
 
-    public static void main(String[] args) {
+    public void dataFill() {
         String[][] data = {{"Housewares", "Rs.1275.00"},
             {"Pets", "Rs.125.00"}, {"Electronics", "Rs.2533.00"},
             {"Menswear", "Rs.497.00"}
         };
-        String[] headers = {"Department", "Daily Revenue"};
-
+        int numberCol = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of Headers:"));
+        String[] headers = new String[numberCol];
+        for(int i=1; i<= numberCol;i++){
+            headers[i-1] = JOptionPane.showInputDialog("Enter the "+i+" Header Name:");
+        }       
+        
         JFrame frame = new JFrame("JTable to Excel");
         DefaultTableModel model = new DefaultTableModel(data, headers);
         final JTable table = new JTable(model);
         JScrollPane scroll = new JScrollPane(table);
 
-        JButton export = new JButton("Export");
+        JButton export = new JButton("Export to Excel");
         export.addActionListener(new ActionListener() {
 
             @Override
